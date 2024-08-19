@@ -1,16 +1,17 @@
 # starter-grub-dash-back-end
 This Project makes the backend for the Grub Dash Project providing all the apis to serve the UI.
-Routes
-To complete this project, you will create the following routes:
 
-GET /dishes
+# Routes
+Below are the routes :
+
+# GET /dishes
 This route will respond with a list of all existing dish data.
 
 Example request
 
 GET http://localhost:5000/dishes
-Example response
 
+Example response
 {
   "data": [
     {
@@ -22,22 +23,10 @@ Example response
     }
   ]
 }
-POST /dishes
+
+# POST /dishes
 This route will save the dish and respond with the newly created dish.
 
-Validation
-If any of the following validations fail, respond with a status code of 400 and an error message.
-
-Validation	Error message
-name property is missing	Dish must include a name
-name property is empty ""	Dish must include a name
-description property is missing	Dish must include a description
-description property is empty ""	Dish must include a description
-price property is missing	Dish must include a price
-price property 0 or less	Dish must have a price that is an integer greater than 0
-price property is not an integer	Dish must have a price that is an integer greater than 0
-image_url property is missing	Dish must include a image_url
-image_url property is empty ""	Dish must include a image_url
 Example request
 
 POST http://localhost:5000/dishes
@@ -64,12 +53,14 @@ Status 201
     "image_url": "https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?h=530&w=350"
   }
 }
-GET /dishes/:dishId
+
+# GET /dishes/:dishId
 This route will respond with the dish where id === :dishId or return 404 if no matching dish is found.
 
 Example request
 
 GET http://localhost:5000/dishes/3c637d011d844ebab1205fef8a7e36ea
+
 Example response
 
 Status 200
@@ -83,20 +74,14 @@ Status 200
     "image_url": "https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?h=530&w=350"
   }
 }
-PUT /dishes/:dishId
+
+# PUT /dishes/:dishId
 This route will update the dish where id === :dishId or return 404 if no matching dish is found.
-
-Validation
-The update validation must include all of the same validation as the POST /dishes route, plus the following:
-
-Validation	Error message
-:dishId does not exist	Dish does not exist: ${dishId}.
-id in the body does not match :dishId in the route	Dish id does not match route id. Dish: ${id}, Route: ${dishId}
-Note: The id property isn't required in the body of the request, but if it is present, it must match :dishId from the route.
 
 Example request
 
 PUT http://localhost:5000/dishes/3c637d011d844ebab1205fef8a7e36ea
+
 Body:
 
 {
@@ -108,6 +93,7 @@ Body:
     "price": "17"
   }
 }
+
 Example response
 
 {
@@ -119,12 +105,14 @@ Example response
     "price": "17"
   }
 }
-GET /orders
+
+# GET /orders
 This route will respond with a list of all existing order data.
 
 Example request
 
 GET http://localhost:5000/orders
+
 Example response
 Status 200
 
@@ -148,23 +136,10 @@ Status 200
     }
   ]
 }
-POST /orders
+
+# POST /orders
 This route will save the order and respond with the newly created order.
 
-Validation
-If any of the following validations fail, respond with a status code of 400 and an error message.
-
-Validation	Error message
-deliverTo property is missing	Order must include a deliverTo
-deliverTo property is empty ""	Order must include a deliverTo
-mobileNumber property is missing	Order must include a mobileNumber
-mobileNumber property is empty ""	Order must include a mobileNumber
-dishes property is missing	Order must include a dish
-dishes property is not an array	Order must include at least one dish
-dishes array is empty	Order must include at least one dish
-A dish quantity property is missing	dish ${index} must have a quantity that is an integer greater than 0
-A dish quantity property is zero or less	dish ${index} must have a quantity that is an integer greater than 0
-A dish quantity property is not an integer	dish ${index} must have a quantity that is an integer greater than 0
 Example request
 
 POST http://localhost:5000/orders
@@ -187,7 +162,6 @@ Body:
     ]
   }
 }
-Note: Each dish in the Order's dishes property is a complete copy of the dish, rather than a reference to the dish by ID. This is so the order does not change retroactively if the dish data is updated some time after the order is created.
 
 Example Response
 
@@ -211,12 +185,14 @@ Status 201
     ]
   }
 }
-GET /orders/:orderId
+
+# GET /orders/:orderId
 This route will respond with the order where id === :orderId or return 404 if no matching order is found.
 
 Example request
 
 GET http://localhost:5000/orders/f6069a542257054114138301947672ba
+
 Example response
 
 Status 200
@@ -239,22 +215,15 @@ Status 200
     ]
   }
 }
-PUT /orders/:orderId
+
+# PUT /orders/:orderId
 This route will update the order where id === :orderId, or return 404 if no matching order is found.
-
-Validation:
-The update validation must include all of the same validation as the POST /orders route, plus the following:
-
-Validation	Error message
-id of body does not match :orderId from the route	Order id does not match route id. Order: ${id}, Route: ${orderId}.
-status property is missing	Order must have a status of pending, preparing, out-for-delivery, delivered
-status property is empty	Order must have a status of pending, preparing, out-for-delivery, delivered
-status property of the existing order === "delivered"	A delivered order cannot be changed
-Note: The id property isn't required in the body of the request, but if it is present it must match :orderId from the route.
+Note : A delivered order cannot be changed.
 
 Example request
 
 PUT http://localhost:5000/orders/3c637d011d844ebab1205fef8a7e36ea
+
 Body:
 
 {
@@ -274,6 +243,7 @@ Body:
     ]
   }
 }
+
 Example response
 
 {
@@ -294,16 +264,15 @@ Example response
     ]
   }
 }
-DELETE /orders/:orderId
+
+# DELETE /orders/:orderId
 This route will delete the order and return a 204 where id === :orderId, or return 404 if no matching order is found.
 
-Validation
-The delete method must include the following validation:
+An order cannot be deleted unless it is pending. Returns a 400 status code
 
-Validation	Error message
-status property of the order !== "pending"	An order cannot be deleted unless it is pending. Returns a 400 status code
 Example request
 
 DELETE http://localhost:5000/dishes/3c637d011d844ebab1205fef8a7e36ea
+
 Example response
 Status 204 and no response body.
