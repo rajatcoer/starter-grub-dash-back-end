@@ -1,6 +1,16 @@
 # starter-grub-dash-back-end
 This Project makes the backend for the Grub Dash Project providing all the apis to serve the UI.
 
+# Installation
+* Fork / clone this repository.
+* Run npm install.
+  
+Use npm start to run the application.
+
+Set the API_BASE_URL environment variable to the base url for the API.
+
+If API_BASE_URL is not set, a default value of http://localhost:5000 is used.
+
 # Routes
 Below are the routes :
 
